@@ -1,0 +1,17 @@
+# go
+bin/
+tmp/
+*.db
+
+# swag generated
+docs/swagger.json
+docs/swagger.yaml
+
+# dev tools
+.air.toml
+
+# git / IDE
+.git
+.vscode
+.idea
+.DS_Store
