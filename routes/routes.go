@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/lilbonekit/event-management-svg/middlewares"
+	"github.com/lilbonekit/event-management-svc/middlewares"
 )
 
 func SetupRoutes(router *gin.Engine) {

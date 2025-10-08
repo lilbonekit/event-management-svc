@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/lilbonekit/event-management-svg/models"
+	"github.com/lilbonekit/event-management-svc/models"
 )
 
 // getEvents godoc

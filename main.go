@@ -14,13 +14,13 @@ package main
 import (
 	"github.com/joho/godotenv"
 
-	_ "github.com/lilbonekit/event-management-svg/docs"
+	_ "github.com/lilbonekit/event-management-svc/docs"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
 	"github.com/gin-gonic/gin"
-	"github.com/lilbonekit/event-management-svg/db"
-	"github.com/lilbonekit/event-management-svg/routes"
+	"github.com/lilbonekit/event-management-svc/db"
+	"github.com/lilbonekit/event-management-svc/routes"
 )
 
 func main() {

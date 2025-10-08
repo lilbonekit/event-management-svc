@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/lilbonekit/event-management-svg/utils"
+	"github.com/lilbonekit/event-management-svc/utils"
 )
 
 func Authenticate(context *gin.Context) {

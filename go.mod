@@ -1,4 +1,4 @@
-module github.com/lilbonekit/event-management-svg
+module github.com/lilbonekit/event-management-svc
 
 go 1.25.1
 

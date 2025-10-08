@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/lilbonekit/event-management-svg/db"
+	"github.com/lilbonekit/event-management-svc/db"
 )
 
 type Event struct {

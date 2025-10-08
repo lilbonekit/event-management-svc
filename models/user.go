@@ -3,8 +3,8 @@ package models
 import (
 	"errors"
 
-	"github.com/lilbonekit/event-management-svg/db"
-	"github.com/lilbonekit/event-management-svg/utils"
+	"github.com/lilbonekit/event-management-svc/db"
+	"github.com/lilbonekit/event-management-svc/utils"
 )
 
 type User struct {
