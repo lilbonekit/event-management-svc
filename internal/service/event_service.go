@@ -80,6 +80,14 @@ func (s *EventService) Update(ctx context.Context, e models.Event, callerID int6
 }
 
 func (s *EventService) Delete(ctx context.Context, id, callerID int64) error {
+	cur, err := s.Get(ctx, id)
+	if err != nil {
+		return err
+	}
+	if cur.UserID != callerID {
+		return ErrNotOwner
+	}
+
 	tx, err := s.db.BeginTx(ctx, nil)
 	if err != nil {
 		return err
@@ -91,7 +99,7 @@ func (s *EventService) Delete(ctx context.Context, id, callerID int64) error {
 		return err
 	}
 	if aff == 0 {
-		return ErrNotOwner
+		return ErrNotFound
 	}
 	return tx.Commit()
 }

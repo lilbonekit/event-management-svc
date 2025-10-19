@@ -109,9 +109,11 @@ func (h *EventHandler) Delete(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c.Request.Context(), 5*time.Second)
 	defer cancel()
 	if err := h.svc.Delete(ctx, id, c.GetInt64("userID")); err != nil {
-		switch err {
-		case service.ErrNotOwner:
+		switch {
+		case errors.Is(err, service.ErrNotOwner):
 			c.JSON(http.StatusForbidden, gin.H{"message": "You do not have permission to delete this event"})
+		case errors.Is(err, service.ErrNotFound):
+			c.JSON(http.StatusNotFound, gin.H{"message": "Event not found"})
 		default:
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not delete event"})
 		}
