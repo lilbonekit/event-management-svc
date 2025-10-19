@@ -1,3 +1,3 @@
-POST http://localhost:8089/events/1/registrations
+POST http://localhost:8089/events/3/registrations
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3R1c2VyNkBleGFtcGxlLmNvbSIsImV4cCI6MTc1OTkxODc3NiwidXNlcklEIjoyfQ.5Z_hsCoIWFI9nigzHsqQKapAoGy1Iv1w9TnRBVrh5lw
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3R1c2VyQGV4YW1wbGUuY29tIiwiZXhwIjoxNzYwODcxNjYxLCJ1c2VySUQiOjF9.bvG3AkTfbRaZeO-38OBhHaafV0-8hcRVo58qzzzMEzo

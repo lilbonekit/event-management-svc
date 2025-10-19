@@ -1,10 +1,10 @@
 POST http://localhost:8089/events
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3R1c2VyQGV4YW1wbGUuY29tIiwiZXhwIjoxNzU5OTIyNjY3LCJ1c2VySUQiOjF9.PZc4rE5hFpc46mqWMfea1z0Gz2FU7iD9ZThcXDKkTNY
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3R1c2VyQGV4YW1wbGUuY29tIiwiZXhwIjoxNzYwODcxNjYxLCJ1c2VySUQiOjF9.bvG3AkTfbRaZeO-38OBhHaafV0-8hcRVo58qzzzMEzo
 
 {
   "name": "New Event",
   "description": "This is a new event",
   "location": "Online",
-  "date_time": "2023-10-01T10:00:00Z"
+  "date_time": "2028-10-01T10:00:00Z"
 }
