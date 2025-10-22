@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"strings"
 
@@ -17,10 +18,13 @@ var (
 )
 
 type UserService struct {
+	db   *sql.DB
 	repo *repo.UserRepo
 }
 
-func NewUserService(r *repo.UserRepo) *UserService { return &UserService{repo: r} }
+func NewUserService(db *sql.DB, r *repo.UserRepo) *UserService {
+	return &UserService{db: db, repo: r}
+}
 
 func (s *UserService) Register(ctx context.Context, in models.NewUser) (int64, error) {
 	hashed, err := utils.HashPassword(in.Password)
@@ -28,7 +32,7 @@ func (s *UserService) Register(ctx context.Context, in models.NewUser) (int64, e
 		return 0, err
 	}
 
-	id, err := s.repo.Create(ctx, in.Email, hashed)
+	id, err := s.repo.Create(ctx, s.db, in.Email, hashed)
 	if err != nil {
 		if strings.Contains(err.Error(), "UNIQUE constraint failed") {
 			return 0, ErrEmailAlreadyInUse

@@ -7,12 +7,6 @@ import (
 	"github.com/lilbonekit/event-management-svc/internal/models"
 )
 
-type DBTX interface {
-	ExecContext(ctx context.Context, query string, args ...any) (sql.Result, error)
-	QueryContext(ctx context.Context, query string, args ...any) (*sql.Rows, error)
-	QueryRowContext(ctx context.Context, query string, args ...any) *sql.Row
-}
-
 type EventRepo struct{ db *sql.DB }
 
 func NewEventRepo(db *sql.DB) *EventRepo { return &EventRepo{db: db} }

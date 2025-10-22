@@ -12,6 +12,7 @@ package main
 @description Use format: Bearer <JWT token>
 */
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -41,7 +42,7 @@ func main() {
 	defer db.Close()
 
 	userRepo := repo.NewUserRepo(db)
-	userSvc := service.NewUserService(userRepo)
+	userSvc := service.NewUserService(db, userRepo)
 	userH := handlers.NewUserHandler(userSvc)
 
 	r := gin.Default()
@@ -53,5 +54,11 @@ func main() {
 
 	routes.SetupEventRoutes(r, evH, middlewares.Authenticate)
 
-	r.Run(":" + os.Getenv("PORT"))
+	port := os.Getenv("PORT")
+	if port == "" {
+		fmt.Println("No PORT environment variable detected, defaulting to 8080")
+		port = "8080"
+	}
+
+	r.Run(":" + port)
 }
