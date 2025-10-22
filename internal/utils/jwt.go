@@ -2,6 +2,7 @@ package utils
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"time"
 
@@ -23,11 +24,15 @@ func GenerateToken(email string, userID int64) (string, error) {
 		return "", err
 	}
 
+	fmt.Printf("Generating token for userID: %d\n", userID)
+
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"email":  email,
 		"userID": userID,
 		"exp":    time.Now().Add(time.Hour * 2).Unix(),
 	})
+
+	fmt.Printf("Token claims set for userID: %d\n", userID)
 
 	return token.SignedString([]byte(secretKey))
 }

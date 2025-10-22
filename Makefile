@@ -2,8 +2,10 @@
 # Go REST API with Swagger, Air & Docker
 # ===================================================
 
-APP_NAME := rest-api
-PORT := 8089
+ifneq (,$(wildcard .env))
+	include .env
+	export $(shell sed 's/=.*//' .env)
+endif
 
 # === Setup tools ===
 .PHONY: tools

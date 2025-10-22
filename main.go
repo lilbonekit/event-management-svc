@@ -12,28 +12,53 @@ package main
 @description Use format: Bearer <JWT token>
 */
 import (
-	"github.com/joho/godotenv"
-
-	_ "github.com/lilbonekit/event-management-svc/docs"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
+	"fmt"
+	"log"
+	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/lilbonekit/event-management-svc/db"
-	"github.com/lilbonekit/event-management-svc/routes"
+	"github.com/joho/godotenv"
+	"github.com/lilbonekit/event-management-svc/internal/db"
+	"github.com/lilbonekit/event-management-svc/internal/handlers"
+	"github.com/lilbonekit/event-management-svc/internal/http/routes"
+	"github.com/lilbonekit/event-management-svc/internal/middlewares"
+	"github.com/lilbonekit/event-management-svc/internal/repo"
+	"github.com/lilbonekit/event-management-svc/internal/service"
 )
 
 func main() {
-	if err := godotenv.Load(); err != nil {
-		panic(".env file not found")
+	_ = godotenv.Load()
+
+	db, err := db.Open(db.Config{
+		Path:         "api.db",
+		PingTimeout:  2 * time.Second,
+		MaxOpenConns: 10,
+		MaxIdleConns: 5,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	userRepo := repo.NewUserRepo(db)
+	userSvc := service.NewUserService(db, userRepo)
+	userH := handlers.NewUserHandler(userSvc)
+
+	r := gin.Default()
+	routes.SetupUserRoutes(r, userH)
+
+	evRepo := repo.NewEventRepo(db)
+	evSvc := service.NewEventService(db, evRepo)
+	evH := handlers.NewEventHandler(evSvc)
+
+	routes.SetupEventRoutes(r, evH, middlewares.Authenticate)
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		fmt.Println("No PORT environment variable detected, defaulting to 8080")
+		port = "8080"
 	}
 
-	db.InitDB()
-	server := gin.Default()
-
-	routes.SetupRoutes(server)
-
-	server.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-	server.Run(":8089")
+	r.Run(":" + port)
 }
